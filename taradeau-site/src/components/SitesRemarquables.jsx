@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { FaArrowRight } from 'react-icons/fa';
 import AnimatedSection, { StaggerItem } from './AnimatedSection';
-import { sitesRemarquables } from '../data/siteData';
+import { useContent } from '../context/ContentContext';
 
 const gradients = [
   'linear-gradient(135deg, #1A2B4A 0%, #E84E3B 100%)',
@@ -10,6 +10,9 @@ const gradients = [
 ];
 
 export default function SitesRemarquables() {
+  const { content } = useContent();
+  const sitesRemarquables = content.sitesRemarquables;
+
   return (
     <section className="section sites-section" aria-label="Sites remarquables">
       <div className="container">

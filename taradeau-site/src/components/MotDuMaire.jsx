@@ -1,10 +1,11 @@
 import { motion } from 'framer-motion';
 import { FaUserTie, FaQuoteLeft } from 'react-icons/fa';
 import AnimatedSection from './AnimatedSection';
-import { communeInfo } from '../data/siteData';
+import { useContent } from '../context/ContentContext';
 
 export default function MotDuMaire() {
-  const { maire } = communeInfo;
+  const { content } = useContent();
+  const maire = content.maire;
 
   return (
     <section className="section maire-section" aria-label="Le mot du Maire">

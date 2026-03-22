@@ -7,6 +7,7 @@ import { AuthProvider } from './context/AuthContext';
 import { LanguageProvider } from './context/LanguageContext';
 import { NewsProvider } from './context/NewsContext';
 import { AnalyticsProvider } from './context/AnalyticsContext';
+import { ContentProvider } from './context/ContentContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import PageTransition from './components/PageTransition';
@@ -28,6 +29,9 @@ const AdminReservations = lazy(() => import('./pages/admin/AdminReservations'));
 const AdminActualites = lazy(() => import('./pages/admin/AdminActualites'));
 const AdminStats = lazy(() => import('./pages/admin/AdminStats'));
 const AdminImages = lazy(() => import('./pages/admin/AdminImages'));
+const AdminContenu = lazy(() => import('./pages/admin/AdminContenu'));
+const AdminPages = lazy(() => import('./pages/admin/AdminPages'));
+const AdminParametres = lazy(() => import('./pages/admin/AdminParametres'));
 
 function LazyFallback() {
   return (
@@ -96,6 +100,9 @@ function AppRoutes() {
             <Route path="actualites" element={<AdminActualites />} />
             <Route path="statistiques" element={<AdminStats />} />
             <Route path="images" element={<AdminImages />} />
+            <Route path="contenu" element={<AdminContenu />} />
+            <Route path="pages" element={<AdminPages />} />
+            <Route path="parametres" element={<AdminParametres />} />
           </Route>
         </Routes>
       </Suspense>
@@ -109,19 +116,21 @@ export default function App() {
   return (
     <ThemeProvider>
       <AuthProvider>
-        <EventProvider>
-          <NewsProvider>
-            <LanguageProvider>
-              <AnalyticsProvider>
-                <BrowserRouter>
-                  <Preloader />
-                  <ScrollToTop />
-                  <AppRoutes />
-                </BrowserRouter>
-              </AnalyticsProvider>
-            </LanguageProvider>
-          </NewsProvider>
-        </EventProvider>
+        <ContentProvider>
+          <EventProvider>
+            <NewsProvider>
+              <LanguageProvider>
+                <AnalyticsProvider>
+                  <BrowserRouter>
+                    <Preloader />
+                    <ScrollToTop />
+                    <AppRoutes />
+                  </BrowserRouter>
+                </AnalyticsProvider>
+              </LanguageProvider>
+            </NewsProvider>
+          </EventProvider>
+        </ContentProvider>
       </AuthProvider>
     </ThemeProvider>
   );

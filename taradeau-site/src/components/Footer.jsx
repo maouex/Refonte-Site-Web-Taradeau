@@ -10,9 +10,11 @@ import {
   FaInstagram,
   FaYoutube,
 } from 'react-icons/fa';
-import { communeInfo } from '../data/siteData';
+import { useContent } from '../context/ContentContext';
 
 export default function Footer() {
+  const { content } = useContent();
+  const communeInfo = content.communeInfo;
   const currentYear = new Date().getFullYear();
 
   return (
@@ -27,8 +29,7 @@ export default function Footer() {
               Taradeau
             </Link>
             <p>
-              Village provençal au cœur du Var, entre vignobles et patrimoine médiéval.
-              Une commune où il fait bon vivre.
+              {content.footerDescription}
             </p>
             <div className="footer-social">
               <a href={communeInfo.reseaux.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook">

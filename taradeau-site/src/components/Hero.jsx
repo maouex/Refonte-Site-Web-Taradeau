@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { FaChevronDown } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import MagneticButton from './MagneticButton';
+import { useContent } from '../context/ContentContext';
 
 function FloatingParticles() {
   const particles = Array.from({ length: 25 }, (_, i) => ({
@@ -90,6 +91,8 @@ function AnimatedTitle({ text, className }) {
 }
 
 export default function Hero() {
+  const { content } = useContent();
+  const hero = content.hero;
   const heroRef = useRef(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const { scrollY } = useScroll();
@@ -143,11 +146,11 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <span className="hero-badge-dot" />
-          Village provençal du Var
+          {hero.badge}
         </motion.div>
 
         <h1>
-          <AnimatedTitle text="Bienvenue à" className="hero-line-1" />
+          <AnimatedTitle text={hero.titre1} className="hero-line-1" />
           <br />
           <motion.span
             className="hero-highlight"
@@ -155,7 +158,7 @@ export default function Hero() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.9, type: 'spring', stiffness: 80 }}
           >
-            Taradeau
+            {hero.titreHighlight}
           </motion.span>
         </h1>
 
@@ -165,7 +168,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 1.3 }}
         >
-          Entre vignobles et patrimoine médiéval — 1 786 habitants au cœur de la Dracénie
+          {hero.sousTitre}
         </motion.p>
 
         <motion.div
@@ -175,13 +178,13 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 1.6 }}
         >
           <MagneticButton strength={0.25}>
-            <Link to="/commune" className="btn btn-primary btn-glow">
-              <span>Découvrir la commune</span>
+            <Link to={hero.bouton1.lien} className="btn btn-primary btn-glow">
+              <span>{hero.bouton1.label}</span>
             </Link>
           </MagneticButton>
           <MagneticButton strength={0.25}>
-            <Link to="/services/demarches" className="btn btn-outline btn-shine">
-              <span>Vos démarches</span>
+            <Link to={hero.bouton2.lien} className="btn btn-outline btn-shine">
+              <span>{hero.bouton2.label}</span>
             </Link>
           </MagneticButton>
         </motion.div>

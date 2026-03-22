@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import AnimatedSection, { StaggerItem } from './AnimatedSection';
-import { chiffresCles } from '../data/siteData';
+import { useContent } from '../context/ContentContext';
 
 function AnimatedCounter({ target, decimales = 0, duration = 2500 }) {
   const [count, setCount] = useState(0);
@@ -32,6 +32,9 @@ function AnimatedCounter({ target, decimales = 0, duration = 2500 }) {
 }
 
 export default function ChiffresCles() {
+  const { content } = useContent();
+  const chiffresCles = content.chiffresCles;
+
   return (
     <section className="section chiffres-section" aria-label="Chiffres clés">
       <div className="chiffres-bg-shapes" aria-hidden="true">

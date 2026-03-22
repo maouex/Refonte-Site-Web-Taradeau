@@ -9,7 +9,7 @@ import {
   FaArrowRight,
 } from 'react-icons/fa';
 import AnimatedSection, { StaggerItem } from './AnimatedSection';
-import { services } from '../data/siteData';
+import { useContent } from '../context/ContentContext';
 
 const iconMap = {
   FaFileSignature: FaFileSignature,
@@ -21,6 +21,9 @@ const iconMap = {
 };
 
 export default function Services() {
+  const { content } = useContent();
+  const services = content.services;
+
   return (
     <section className="section services-section" aria-label="Services municipaux">
       <div className="container">

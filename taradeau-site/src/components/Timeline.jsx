@@ -1,44 +1,7 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import AnimatedSection from './AnimatedSection';
-
-const timelineData = [
-  {
-    date: 'VIe s. av. J.-C.',
-    titre: 'Oppidum du Fort',
-    description: 'Installation d\'un oppidum celto-ligure sur la colline du Fort, témoignant des premières occupations humaines du territoire.',
-  },
-  {
-    date: 'Ier s. av. J.-C.',
-    titre: 'Période romaine',
-    description: 'Romanisation de la région avec le développement de la viticulture dans la vallée de l\'Argens.',
-  },
-  {
-    date: 'XIe siècle',
-    titre: 'Chapelle Notre-Dame',
-    description: 'Construction de la chapelle et de la tour médiévale qui dominent encore le village aujourd\'hui.',
-  },
-  {
-    date: 'XVIIe siècle',
-    titre: 'Le village provençal',
-    description: 'Développement du village autour de l\'église, avec ses ruelles typiques et ses maisons en pierre.',
-  },
-  {
-    date: '1790',
-    titre: 'Commune officielle',
-    description: 'Taradeau devient officiellement une commune lors de la Révolution française.',
-  },
-  {
-    date: 'XXe siècle',
-    titre: 'Essor viticole',
-    description: 'Taradeau s\'affirme au cœur de l\'appellation Côtes de Provence avec ses domaines réputés.',
-  },
-  {
-    date: 'Aujourd\'hui',
-    titre: '1 786 habitants',
-    description: 'Un village dynamique entre traditions provençales et modernité, au cœur de la communauté d\'agglomération Dracénoise.',
-  },
-];
+import { useContent } from '../context/ContentContext';
 
 function TimelineItem({ item, index }) {
   const ref = useRef(null);
@@ -68,6 +31,9 @@ function TimelineItem({ item, index }) {
 }
 
 export default function Timeline() {
+  const { content } = useContent();
+  const timelineData = content.timeline;
+
   return (
     <section className="section timeline-section" aria-label="Histoire de Taradeau">
       <div className="container">

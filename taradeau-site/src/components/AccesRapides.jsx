@@ -8,7 +8,7 @@ import {
   FaNewspaper,
 } from 'react-icons/fa';
 import AnimatedSection, { StaggerItem } from './AnimatedSection';
-import { accesRapides } from '../data/siteData';
+import { useContent } from '../context/ContentContext';
 
 const iconMap = {
   FaCalendarAlt: FaCalendarAlt,
@@ -47,6 +47,9 @@ function TiltCard({ children }) {
 }
 
 export default function AccesRapides() {
+  const { content } = useContent();
+  const accesRapides = content.accesRapides;
+
   return (
     <section className="acces-rapides" aria-label="Accès rapides">
       <div className="container">

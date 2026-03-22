@@ -3,13 +3,16 @@ import { Link, useLocation } from 'react-router-dom';
 import { FaPhone, FaEnvelope, FaBars, FaTimes, FaSun, FaMoon, FaChevronDown, FaLandmark, FaGlobe } from 'react-icons/fa';
 import { useTheme } from '../context/ThemeContext';
 import { useLanguage } from '../context/LanguageContext';
-import { communeInfo, navigation } from '../data/siteData';
+import { useContent } from '../context/ContentContext';
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { darkMode, toggleDarkMode } = useTheme();
   const { language, setLanguage } = useLanguage();
+  const { content } = useContent();
+  const communeInfo = content.communeInfo;
+  const navigation = content.navigation;
   const location = useLocation();
 
   useEffect(() => {

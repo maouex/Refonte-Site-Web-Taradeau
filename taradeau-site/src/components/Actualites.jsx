@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { FaCalendarAlt, FaArrowRight } from 'react-icons/fa';
 import AnimatedSection from './AnimatedSection';
-import { actualites } from '../data/siteData';
+import { useNews } from '../context/NewsContext';
 
 const categories = [
   { key: 'vieCommunale', label: 'Vie communale' },
@@ -19,9 +19,10 @@ function formatDate(dateStr) {
 }
 
 export default function Actualites() {
+  const { articles: allArticles } = useNews();
   const [activeTab, setActiveTab] = useState('vieCommunale');
 
-  const articles = actualites[activeTab] || [];
+  const articles = allArticles.filter((a) => a.categorie === activeTab);
 
   return (
     <section className="section actualites-section" aria-label="Actualités" id="actualites">
