@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { FaChevronDown } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import MagneticButton from './MagneticButton';
 
 function FloatingParticles() {
   const particles = Array.from({ length: 25 }, (_, i) => ({
@@ -173,12 +174,16 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 1.6 }}
         >
-          <Link to="/commune" className="btn btn-primary btn-glow">
-            <span>Découvrir la commune</span>
-          </Link>
-          <Link to="/services/demarches" className="btn btn-outline btn-shine">
-            <span>Vos démarches</span>
-          </Link>
+          <MagneticButton strength={0.25}>
+            <Link to="/commune" className="btn btn-primary btn-glow">
+              <span>Découvrir la commune</span>
+            </Link>
+          </MagneticButton>
+          <MagneticButton strength={0.25}>
+            <Link to="/services/demarches" className="btn btn-outline btn-shine">
+              <span>Vos démarches</span>
+            </Link>
+          </MagneticButton>
         </motion.div>
       </motion.div>
 

@@ -8,6 +8,8 @@ import HomePage from './pages/HomePage';
 import GenericPage from './pages/GenericPage';
 import ScrollToTop from './components/ScrollToTop';
 import CursorGlow from './components/CursorGlow';
+import Preloader from './components/Preloader';
+import ScrollProgress from './components/ScrollProgress';
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -39,6 +41,8 @@ export default function App() {
   return (
     <ThemeProvider>
       <BrowserRouter>
+        <Preloader />
+        <ScrollProgress />
         <ScrollToTop />
         <CursorGlow />
         <Header />
