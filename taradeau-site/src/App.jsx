@@ -121,7 +121,7 @@ export default function App() {
             <NewsProvider>
               <LanguageProvider>
                 <AnalyticsProvider>
-                  <BrowserRouter>
+                  <BrowserRouter basename={import.meta.env.BASE_URL}>
                     <Preloader />
                     <ScrollToTop />
                     <AppRoutes />
