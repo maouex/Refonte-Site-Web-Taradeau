@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FaPhone, FaEnvelope, FaBars, FaTimes, FaSun, FaMoon, FaChevronDown, FaLandmark } from 'react-icons/fa';
+import { FaPhone, FaEnvelope, FaBars, FaTimes, FaSun, FaMoon, FaChevronDown, FaLandmark, FaGlobe } from 'react-icons/fa';
 import { useTheme } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
 import { communeInfo, navigation } from '../data/siteData';
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { darkMode, toggleDarkMode } = useTheme();
+  const { language, setLanguage } = useLanguage();
   const location = useLocation();
 
   useEffect(() => {
@@ -82,6 +84,15 @@ export default function Header() {
           </nav>
 
           <div className="header-actions">
+            <button
+              className="theme-toggle"
+              onClick={() => setLanguage(language === 'fr' ? 'en' : 'fr')}
+              aria-label={language === 'fr' ? 'Switch to English' : 'Passer en français'}
+              title={language === 'fr' ? 'English' : 'Français'}
+              style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: '0.8rem', fontWeight: 600 }}
+            >
+              <FaGlobe /> {language === 'fr' ? 'EN' : 'FR'}
+            </button>
             <button
               className="theme-toggle"
               onClick={toggleDarkMode}
