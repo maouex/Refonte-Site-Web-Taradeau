@@ -1,8 +1,9 @@
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaMapMarkerAlt, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaChevronLeft, FaChevronRight, FaTicketAlt, FaUsers } from 'react-icons/fa';
 import AnimatedSection from './AnimatedSection';
-import { evenements } from '../data/siteData';
+import ReservationModal from './ReservationModal';
+import { useEvents } from '../context/EventContext';
 
 function parseDate(dateStr) {
   const d = new Date(dateStr);
@@ -18,21 +19,26 @@ const slideVariants = {
 };
 
 export default function Evenements() {
+  const { events, getEventPlacesRestantes } = useEvents();
   const [activeIdx, setActiveIdx] = useState(0);
   const [direction, setDirection] = useState(0);
+  const [reservingEvent, setReservingEvent] = useState(null);
+
+  if (events.length === 0) return null;
 
   const navigate = (newDir) => {
     setDirection(newDir);
     setActiveIdx((prev) => {
       const next = prev + newDir;
-      if (next < 0) return evenements.length - 1;
-      if (next >= evenements.length) return 0;
+      if (next < 0) return events.length - 1;
+      if (next >= events.length) return 0;
       return next;
     });
   };
 
-  const evt = evenements[activeIdx];
+  const evt = events[activeIdx];
   const { day, month } = parseDate(evt.date);
+  const placesRestantes = getEventPlacesRestantes(evt.id);
 
   return (
     <section className="section evenements-section" aria-label="Événements à venir">
@@ -79,6 +85,19 @@ export default function Evenements() {
                       {evt.lieu}
                     </div>
                     <p>{evt.description}</p>
+                    <div className="event-slider-footer">
+                      <span className="event-places">
+                        <FaUsers /> {placesRestantes} place{placesRestantes > 1 ? 's' : ''} restante{placesRestantes > 1 ? 's' : ''}
+                      </span>
+                      {evt.reservationsOuvertes && placesRestantes > 0 && (
+                        <button
+                          className="btn btn-primary btn-sm"
+                          onClick={() => setReservingEvent(evt)}
+                        >
+                          <FaTicketAlt /> Réserver
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </motion.div>
               </AnimatePresence>
@@ -95,7 +114,7 @@ export default function Evenements() {
 
           {/* Dots indicator */}
           <div className="event-dots" role="tablist">
-            {evenements.map((_, i) => (
+            {events.map((_, i) => (
               <button
                 key={i}
                 className={`event-dot ${i === activeIdx ? 'active' : ''}`}
@@ -114,11 +133,12 @@ export default function Evenements() {
         {/* Mini cards below */}
         <AnimatedSection delay={0.4}>
           <div className="evenements-grid">
-            {evenements.map((e, i) => {
+            {events.map((e, i) => {
               const d = parseDate(e.date);
+              const places = getEventPlacesRestantes(e.id);
               return (
                 <motion.article
-                  key={e.titre}
+                  key={e.id}
                   className={`event-card ${i === activeIdx ? 'event-card-active' : ''}`}
                   whileHover={{ y: -6, scale: 1.02 }}
                   onClick={() => {
@@ -137,6 +157,22 @@ export default function Evenements() {
                       <FaMapMarkerAlt />
                       {e.lieu}
                     </div>
+                    <div className="event-card-footer">
+                      <small className="event-places-small">
+                        <FaUsers /> {places} places
+                      </small>
+                      {e.reservationsOuvertes && places > 0 && (
+                        <button
+                          className="btn btn-xs btn-primary"
+                          onClick={(ev) => {
+                            ev.stopPropagation();
+                            setReservingEvent(e);
+                          }}
+                        >
+                          Réserver
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </motion.article>
               );
@@ -144,6 +180,14 @@ export default function Evenements() {
           </div>
         </AnimatedSection>
       </div>
+
+      {/* Reservation Modal */}
+      {reservingEvent && (
+        <ReservationModal
+          event={reservingEvent}
+          onClose={() => setReservingEvent(null)}
+        />
+      )}
     </section>
   );
 }
