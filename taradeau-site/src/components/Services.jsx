@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import {
   FaFileSignature,
   FaBuilding,
@@ -5,8 +6,9 @@ import {
   FaShieldAlt,
   FaTint,
   FaGavel,
+  FaArrowRight,
 } from 'react-icons/fa';
-import AnimatedSection from './AnimatedSection';
+import AnimatedSection, { StaggerItem } from './AnimatedSection';
 import { services } from '../data/siteData';
 
 const iconMap = {
@@ -30,22 +32,30 @@ export default function Services() {
           </div>
         </AnimatedSection>
 
-        <div className="services-grid">
-          {services.map((service, i) => {
+        <AnimatedSection stagger className="services-grid">
+          {services.map((service) => {
             const Icon = iconMap[service.icone];
             return (
-              <AnimatedSection key={service.titre} delay={i * 0.1}>
-                <div className="service-card">
+              <StaggerItem key={service.titre} variant="up">
+                <motion.div
+                  className="service-card"
+                  whileHover={{ y: -8, scale: 1.02 }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                >
+                  <div className="service-card-shine" aria-hidden="true" />
                   <div className="service-icon" aria-hidden="true">
                     {Icon && <Icon />}
                   </div>
                   <h3>{service.titre}</h3>
                   <p>{service.description}</p>
-                </div>
-              </AnimatedSection>
+                  <span className="service-card-link">
+                    En savoir plus <FaArrowRight />
+                  </span>
+                </motion.div>
+              </StaggerItem>
             );
           })}
-        </div>
+        </AnimatedSection>
       </div>
     </section>
   );
