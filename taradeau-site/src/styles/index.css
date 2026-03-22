@@ -2188,7 +2188,7 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10000;
+  z-index: 10001;
   padding: 24px;
 }
 
@@ -2201,6 +2201,7 @@ html {
   max-height: 90vh;
   overflow-y: auto;
   position: relative;
+  z-index: 1;
   box-shadow: var(--shadow-xl);
 }
 
